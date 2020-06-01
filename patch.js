@@ -5,8 +5,10 @@ const path = require('path');
 
 const rootPath = path.join(__dirname, '.');
 
+// ============================================================================
+// Get RN version
+// ============================================================================
 const RNRootPath = path.join(__dirname, '..', 'react-native');
-
 const RNPackageFile = `${RNRootPath}/package.json`;
 if (!fs.existsSync(RNPackageFile)) {
   console.log('[!] Not exists react-native');
@@ -35,13 +37,13 @@ const patchVersion = parseInt(version[2], 10);
 let patchDir = '';
 switch (minorVersion) {
   case 62:
-    patchDir = '0.62.1';
+    patchDir = '0.62.2';
     break;
   case 61:
     patchDir = '0.61.5';
     break;
-  case 60: 
-    patchDir = '0.60.5';
+  case 60:
+    patchDir = '0.60.6';
     break;
   default:    
     break;

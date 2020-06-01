@@ -1,0 +1,28 @@
+{
+  "name": "react-native-networking-patch",
+  "version": "1.0.0",
+  "description": "Improves the performance of the React Native network module and adds a timeout feature.",
+  "keywords": [
+    "react-native",
+    "networking",
+    "fetch",
+    "timeout"
+  ],
+  "main": "patch.js",
+  "author": "ifsnow <ifsnow@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ifsnow/react-native-networking-patch.git"
+  },
+  "bin": {
+    "rn-networking-patch": "patch.js"
+  },
+  "scripts": {
+    "patch": "node patch.js",
+    "postinstall": "yarn run patch"
+  },
+  "devDependencies": {
+    "react-native": ">=0.60.0"
+  }
+}
