@@ -16,37 +16,35 @@ if (!fs.existsSync(RNPackageFile)) {
 }
 
 const packageFile = fs.readFileSync(RNPackageFile);
-let package = null;
+let packageJSON = null;
 
 try {
-  package = JSON.parse(packageFile);
+  packageJSON = JSON.parse(packageFile);
 } catch (e) {
   console.error(e);
 }
 
-if (!package) {
+if (!packageJSON) {
   console.log('[!] Failed to get version of react-native');
   process.exit(1);
 }
 
-const version = package.version.split('.');
-const majorVersion = parseInt(version[0], 10);
+const version = packageJSON.version.split('.');
 const minorVersion = parseInt(version[1], 10);
-const patchVersion = parseInt(version[2], 10);
 
 let patchDir = '';
 switch (minorVersion) {
-  case 62:
-    patchDir = '0.62.2';
-    break;
-  case 61:
-    patchDir = '0.61.5';
-    break;
-  case 60:
-    patchDir = '0.60.6';
-    break;
-  default:    
-    break;
+case 62:
+  patchDir = '0.62.2';
+  break;
+case 61:
+  patchDir = '0.61.5';
+  break;
+case 60:
+  patchDir = '0.60.6';
+  break;
+default:
+  break;
 }
 
 if (patchDir === '') {
@@ -55,10 +53,10 @@ if (patchDir === '') {
 }
 
 function getAllFiles(dirPath, arrayOfFiles) {
-  files = fs.readdirSync(dirPath)
- 
-  arrayOfFiles = arrayOfFiles || []
- 
+  const files = fs.readdirSync(dirPath);
+
+  arrayOfFiles = arrayOfFiles || [];
+
   files.forEach(function(file) {
     if (file === '.DS_Store') {
       return;
@@ -66,13 +64,13 @@ function getAllFiles(dirPath, arrayOfFiles) {
 
     const filePath = `${dirPath}/${file}`;
     if (fs.statSync(filePath).isDirectory()) {
-      arrayOfFiles = getAllFiles(filePath, arrayOfFiles)
+      arrayOfFiles = getAllFiles(filePath, arrayOfFiles);
     } else {
       arrayOfFiles.push(filePath);
     }
-  })
- 
-  return arrayOfFiles
+  });
+
+  return arrayOfFiles;
 }
 
 // ============================================================================
