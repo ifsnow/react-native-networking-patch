@@ -29,8 +29,9 @@ if (!packageJSON) {
   process.exit(1);
 }
 
-const version = packageJSON.version.split('.');
-const minorVersion = parseInt(version[1], 10);
+const version = packageJSON.version;
+const versions = version.split('.');
+const minorVersion = parseInt(versions[1], 10);
 
 let patchDir = '';
 switch (minorVersion) {
@@ -49,6 +50,11 @@ default:
 
 if (patchDir === '') {
   console.log('[!] Unsupported react-native version (>= 0.60)');
+  process.exit(1);
+}
+
+if (patchDir !== version) {
+  console.log(`[!] React Native is not the latest version. Please upgrade to ${patchDir} first.`);
   process.exit(1);
 }
 

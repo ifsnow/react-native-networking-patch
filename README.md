@@ -81,7 +81,7 @@ async function getLongItem() {
 # Usage
 
 ### Requirement
-It works with RN 0.60 and higher versions(0.62.2, 0.61.5, 0.60.6). Of course, it works on `Expo`.
+**It works with the latest versions such as v0.62.2, v0.61.5 and v0.60.6.** If not, please upgrade to the latest version. Of course, it works on `Expo`.
 
 ### Install
 Once installed, react-native is automatically patched.
