@@ -236,14 +236,11 @@ public final class NetworkingModule extends NativeNetworkingAndroidSpec {
       String responseType,
       boolean useIncrementalUpdates,
       double timeoutAsDouble,
-      boolean withCredentials,
-      boolean useImprovedEvent) {
+      boolean withCredentials) {
     int requestId = (int) requestIdAsDouble;
     int timeout = (int) timeoutAsDouble;
     
     try {
-      ResponseUtil.setImprovedEvent(requestId, useImprovedEvent);
-
       sendRequestInternal(
           method,
           url,
@@ -259,8 +256,6 @@ public final class NetworkingModule extends NativeNetworkingAndroidSpec {
       final RCTDeviceEventEmitter eventEmitter = getEventEmitter("sendRequest error");
       if (eventEmitter != null) {
         ResponseUtil.onRequestError(eventEmitter, requestId, th.getMessage(), th);
-      } else if (useImprovedEvent) {
-        ResponseUtil.removeImprovedEvent(requestId);
       }
     }
   }

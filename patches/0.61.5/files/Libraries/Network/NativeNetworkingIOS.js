@@ -24,7 +24,6 @@ export interface Spec extends TurboModule {
       incrementalUpdates: boolean,
       timeout: number,
       withCredentials: boolean,
-      improvedEvent?: boolean,
     |},
     callback: (requestId: number) => void,
   ) => void;

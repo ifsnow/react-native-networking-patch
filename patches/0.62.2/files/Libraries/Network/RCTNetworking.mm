@@ -147,7 +147,6 @@ static NSString *RCTGenerateFormBoundary()
 @implementation RCTNetworking
 {
   NSMutableDictionary<NSNumber *, RCTNetworkTask *> *_tasksByRequestID;
-  NSMutableDictionary<NSNumber *, NSNumber *> *_improvedEventsByRequestID;
   std::mutex _handlersLock;
   NSArray<id<RCTURLRequestHandler>> *_handlers;
   NSArray<id<RCTURLRequestHandler>> * (^_handlersProvider)(void);
@@ -173,7 +172,6 @@ RCT_EXPORT_MODULE()
     [_tasksByRequestID[requestID] cancel];
   }
   [_tasksByRequestID removeAllObjects];
-  [_improvedEventsByRequestID removeAllObjects];
   _handlers = nil;
   _requestHandlers = nil;
   _responseHandlers = nil;
@@ -518,7 +516,6 @@ RCT_EXPORT_MODULE()
 - (void)sendRequest:(NSURLRequest *)request
        responseType:(NSString *)responseType
  incrementalUpdates:(BOOL)incrementalUpdates
-      improvedEvent:(BOOL)improvedEvent
      responseSender:(RCTResponseSenderBlock)responseSender
 {
   RCTAssertThread(_methodQueue, @"sendRequest: must be called on method queue");
@@ -607,7 +604,6 @@ RCT_EXPORT_MODULE()
 
     [strongSelf sendEvent:@"didCompleteNetworkResponse" body:responseJSON forTask:task];
     [strongSelf->_tasksByRequestID removeObjectForKey:task.requestID];
-    [strongSelf->_improvedEventsByRequestID removeObjectForKey:task.requestID];
   };
 
   task = [self networkTaskWithRequest:request completionBlock:completionBlock];
@@ -622,13 +618,6 @@ RCT_EXPORT_MODULE()
     }
     _tasksByRequestID[task.requestID] = task;
 
-    if (improvedEvent) {
-      if (!_improvedEventsByRequestID) {
-        _improvedEventsByRequestID = [NSMutableDictionary new];
-      }
-      _improvedEventsByRequestID[task.requestID] = @YES;
-    }
-
     responseSender(@[task.requestID]);
   }
 
@@ -639,15 +628,11 @@ RCT_EXPORT_MODULE()
              body:(NSArray *)body
           forTask:(RCTNetworkTask *)task
 {
-  if (_improvedEventsByRequestID[task.requestID]) {
-    NSDictionary *eventsBody = @{
-                                @"eventName": eventName,
-                                @"args": body
-                               };
-    [self sendEventWithName:@"events" body:eventsBody];
-  } else {
-    [self sendEventWithName:eventName body:body];
-  }
+  NSDictionary *eventsBody = @{
+                              @"eventName": eventName,
+                              @"args": body
+                              };
+  [self sendEventWithName:@"events" body:eventsBody];
 }
 
 #pragma mark - Public API
@@ -707,7 +692,6 @@ RCT_EXPORT_METHOD(sendRequest:(JS::NativeNetworkingIOS::SpecSendRequestQuery &)q
     @"incrementalUpdates": @(query.incrementalUpdates()),
     @"timeout": @(query.timeout()),
     @"withCredentials": @(query.withCredentials()),
-    @"improvedEvent": @(query.improvedEvent()),
   };
   
   // TODO: buildRequest returns a cancellation block, but there's currently
@@ -716,11 +700,9 @@ RCT_EXPORT_METHOD(sendRequest:(JS::NativeNetworkingIOS::SpecSendRequestQuery &)q
   [self buildRequest:queryDict completionBlock:^(NSURLRequest *request) {
     NSString *responseType = [RCTConvert NSString:queryDict[@"responseType"]];
     BOOL incrementalUpdates = [RCTConvert BOOL:queryDict[@"incrementalUpdates"]];
-    BOOL improvedEvent = [RCTConvert BOOL:queryDict[@"improvedEvent"]];
     [self sendRequest:request
          responseType:responseType
    incrementalUpdates:incrementalUpdates
-        improvedEvent:improvedEvent
        responseSender:responseSender];
   }];
 }

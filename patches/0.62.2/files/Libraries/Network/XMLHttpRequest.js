@@ -516,7 +516,6 @@ class XMLHttpRequest extends (EventTarget(...XHR_EVENTS): any) {
       this.timeout,
       this._didCreateRequest.bind(this),
       this.withCredentials,
-      true,
     );
   }
 

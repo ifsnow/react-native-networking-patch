@@ -11,41 +11,20 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
 import java.net.SocketTimeoutException;
-import java.util.HashSet;
 
 /** Util methods to send network responses to JS. */
 public class ResponseUtil {
-  private static final HashSet<Integer> sImprovedEventsByRequestId = new HashSet<>();
-
-  public static void setImprovedEvent(int requestId, boolean useImprovedEvent) {
-    if (useImprovedEvent) {
-      sImprovedEventsByRequestId.add(requestId);
-    }
-  }
-
-  public static void removeImprovedEvent(int requestId) {
-    sImprovedEventsByRequestId.remove(requestId);
-  }
-
-  private static boolean isImprovedEventEnabled(int requestId) {
-    return sImprovedEventsByRequestId.contains(requestId);
-  }
-
   public static void sendEvent(
       RCTDeviceEventEmitter eventEmitter, int requestId, String eventName, WritableArray args) {
     if (eventEmitter == null) {
       return;
     }
 
-    if (isImprovedEventEnabled(requestId)) {
-      WritableMap eventArgs = Arguments.createMap();
-      eventArgs.putString("eventName", eventName);
-      eventArgs.putArray("args", args);
+    WritableMap eventArgs = Arguments.createMap();
+    eventArgs.putString("eventName", eventName);
+    eventArgs.putArray("args", args);
 
-      eventEmitter.emit("events", eventArgs);
-    } else {
-      eventEmitter.emit(eventName, args);
-    }
+    eventEmitter.emit("events", eventArgs);
   }
   
   public static void onDataSend(
@@ -108,7 +87,6 @@ public class ResponseUtil {
     }
 
     sendEvent(eventEmitter, requestId, "didCompleteNetworkResponse", args);
-    removeImprovedEvent(requestId);
   }
 
   public static void onRequestSuccess(RCTDeviceEventEmitter eventEmitter, int requestId) {
@@ -117,7 +95,6 @@ public class ResponseUtil {
     args.pushNull();
 
     sendEvent(eventEmitter, requestId, "didCompleteNetworkResponse", args);
-    removeImprovedEvent(requestId);
   }
 
   public static void onResponseReceived(
