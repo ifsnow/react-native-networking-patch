@@ -44,12 +44,15 @@ case 61:
 case 60:
   patchDir = '0.60.6';
   break;
+case 59:
+  patchDir = '0.59.10';
+  break;  
 default:
   break;
 }
 
 if (patchDir === '') {
-  console.log('[!] Unsupported react-native version (>= 0.60)');
+  console.log('[!] Unsupported react-native version (>= 0.59)');
   process.exit(1);
 }
 

@@ -5,7 +5,7 @@
 React Native uses 6 event listeners to process networking events. For each request, these 6 listeners are registered and removed whenever processing. This is not the most effective approach. This patch makes RN's networking module work more efficiently.
 
 ### # Performance Improvement
-It improves performance using only one event for each request. When tested in my environments, there was about **20%** improvement in performance.
+It improves performance using only one event for each request. Because bridge communication is reduced, it's more efficient and improves overall app performance.
 
 The following bridge communications occur for each `fetch` request.
 ```javascript
@@ -81,7 +81,7 @@ async function getLongItem() {
 # Usage
 
 ### Requirement
-**It works with the latest versions such as v0.62.2, v0.61.5 and v0.60.6.** If not, please upgrade to the latest version. Of course, it works on `Expo`.
+**It works with the latest versions such as v0.59.10, v0.62.2, v0.61.5 and v0.60.6.** If not, please upgrade to the latest version. Of course, it works on `Expo`.
 
 ### Install
 Once installed, react-native is automatically patched.
