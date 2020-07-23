@@ -32,11 +32,12 @@ if (!packageJSON) {
 const version = packageJSON.version;
 const versions = version.split('.');
 const minorVersion = parseInt(versions[1], 10);
+const patchVersion = parseInt(version[2], 10);
 
 let patchDir = '';
 switch (minorVersion) {
 case 63:
-  patchDir = '0.63.1';
+  patchDir = patchVersion === 1 ? '0.63.1' : '0.63.2';
   break;
 case 62:
   patchDir = '0.62.2';
@@ -49,7 +50,7 @@ case 60:
   break;
 case 59:
   patchDir = '0.59.10';
-  break;  
+  break;
 default:
   break;
 }
