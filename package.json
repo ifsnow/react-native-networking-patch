@@ -1,6 +1,6 @@
 {
   "name": "react-native-networking-patch",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Improves the performance of the React Native network module and adds a timeout feature.",
   "keywords": [
     "react-native",
