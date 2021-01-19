@@ -55,8 +55,9 @@ default:
   break;
 }
 
-if (patchDir === '') {
-  console.log('[!] Unsupported react-native version (>= 0.59)');
+const isPatchExists = patchDir !== '' && fs.existsSync(`${rootPath}/patches/${patchDir}`);
+if (!isPatchExists) {
+  console.log(`[!] Unsupported react-native version! (${version})`);
   process.exit(1);
 }
 
