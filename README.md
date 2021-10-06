@@ -89,22 +89,21 @@ Once installed, react-native is automatically patched.
 yarn add react-native-networking-patch --dev
 ```
 
-`postinstall`, `postuninstall` should be added to prevent this patch from being restored whenever packages are changed.
+`prepare` should be added to prevent this patch from being restored whenever packages are changed.
 ```javascript
 // package.json
 {
   ...
   "scripts": {
     ...,
-    "postinstall": "yarn rn-networking-patch",
-    "postuninstall": "yarn rn-networking-patch"
+    "prepare": "yarn rn-networking-patch"
   }
 }
 ```
 
-If you were already using `postinstall`, you can add the patch script later.
+If you were already using `prepare`, you can add the patch script later.
 ```javascript
-"postinstall": "yarn jetify; yarn rn-networking-patch"
+"prepare": "yarn jetify; yarn rn-networking-patch"
 ```
 
 ### Execute manually
@@ -114,7 +113,7 @@ yarn rn-networking-patch
 ```
 
 ### Uninstall
-Just delete the command you added to `postinstall`, `postuninstall` and remove `react-native-networking-patch` package.
+Just delete the command you added to `prepare` and remove `react-native-networking-patch` package.
 
 [npm-image]: https://img.shields.io/npm/v/react-native-networking-patch.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/react-native-networking-patch
