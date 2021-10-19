@@ -45,9 +45,6 @@ case 61:
 case 60:
   patchDir = '0.60.6';
   break;
-case 59:
-  patchDir = '0.59.10';
-  break;
 default:
   patchDir = version;
   break;
