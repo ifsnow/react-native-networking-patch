@@ -29,35 +29,12 @@ if (!packageJSON) {
   process.exit(1);
 }
 
-const version = packageJSON.version;
-const versions = version.split('.');
-const minorVersion = parseInt(versions[1], 10);
-const patchVersion = parseInt(version[2], 10);
-
-let patchDir = '';
-switch (minorVersion) {
-case 62:
-  patchDir = '0.62.2';
-  break;
-case 61:
-  patchDir = '0.61.5';
-  break;
-case 60:
-  patchDir = '0.60.6';
-  break;
-default:
-  patchDir = version;
-  break;
-}
-
+const patchDir = packageJSON.version;
 const isPatchExists = patchDir !== '' && fs.existsSync(`${rootPath}/patches/${patchDir}`);
 if (!isPatchExists) {
-  console.log(`[!] Unsupported react-native version! (${version})`);
-  process.exit(1);
-}
-
-if (patchDir !== version) {
-  console.log(`[!] React Native is not the latest version. Please upgrade to ${patchDir} first.`);
+  const supportVersions = fs.readdirSync(`${rootPath}/patches`).filter(dir => dir.match(/^\d/)).join(', ');
+  console.log(`[!] Unsupported react-native version! (${patchDir})`);
+  console.log(`[!] Supported react-native versions: ${supportVersions}`);
   process.exit(1);
 }
 
