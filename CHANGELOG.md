@@ -1,3 +1,7 @@
+# 1.1.6 (2021-11-10)
+* Support for RN v0.66.3, v0.64.3
+* End of support for RN v0.61.x, v0.62.x
+
 # 1.1.5 (2021-11-05)
 * Support for RN v0.66.2
 * End of support for RN v0.60.x
