@@ -89,6 +89,11 @@ Once installed, react-native is automatically patched.
 yarn add react-native-networking-patch --dev
 ```
 
+**If you're using RN v0.63.x, You must use version `1.1.6`.**
+```bash
+yarn add react-native-networking-patch@1.1.6 --dev
+```
+
 `prepare` should be added to prevent this patch from being restored whenever packages are changed.
 ```javascript
 // package.json
