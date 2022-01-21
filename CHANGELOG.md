@@ -1,5 +1,8 @@
+# 1.1.8 (2022-01-22)
+* Support for RN v0.67.1
+
 # 1.1.7 (2022-01-19)
-* Support for RN v0.67.3, v0.66.4
+* Support for RN v0.67.0, v0.66.4
 
 # 1.1.6 (2021-11-10)
 * Support for RN v0.66.3, v0.64.3
