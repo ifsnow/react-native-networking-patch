@@ -89,7 +89,12 @@ Once installed, react-native is automatically patched.
 yarn add react-native-networking-patch --dev
 ```
 
-**If you're using RN v0.63.x or v0.64.0, You must use the version below.**
+**If you're using RN v0.63.x or v0.64.2 or lower, You must use the version below.**
+- RN v0.64.2
+```bash
+yarn add react-native-networking-patch@1.1.8 --dev
+```
+
 - RN v0.64.0
 ```bash
 yarn add react-native-networking-patch@1.1.7 --dev
