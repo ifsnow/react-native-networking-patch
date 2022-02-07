@@ -1,3 +1,6 @@
+# 1.2.0 (2022-02-07)
+* Support for RN v0.67.2 (Changed files)
+
 # 1.1.9 (2022-02-05)
 * Support for RN v0.67.2
 
@@ -26,7 +29,7 @@
 * Support for RN v0.65.x
 
 # 1.1.1 (2021-08-13)
-* Support for RN v0.64.2 ( Fix Android library)
+* Support for RN v0.64.2 (Fix Android library)
 
 # 1.1.0 (2021-07-04)
 * Support for RN v0.64.2
