@@ -1,6 +1,8 @@
+# 1.2.2 (2022-04-03)
+* Support for RN v0.68.0
+
 # 1.2.1 (2022-03-18)
 * Support for RN v0.67.3, v0.67.4
-* End of support for RN v0.64.3, v0.65.0
 
 # 1.2.0 (2022-02-07)
 * Support for RN v0.67.2 (Changed files)

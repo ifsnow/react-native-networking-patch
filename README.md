@@ -84,12 +84,18 @@ async function getLongItem() {
 It works with v0.63.2 or higher of RN. If not, please upgrade to the latest version. Of course, it works on `Expo`.
 
 ### Install
+**If you're using RN v0.66 or higher**
 Once installed, react-native is automatically patched.
 ```bash
 yarn add react-native-networking-patch --dev
 ```
 
-**If you're using RN v0.63.x ~ v0.65.0, You must use the version below.**
+**If you're using RN v0.63.x ~ v0.65.1, You must use the specific version below.**
+- RN v0.65.1
+```bash
+yarn add react-native-networking-patch@1.2.1 --dev
+```
+
 - RN v0.65.0, RN v0.64.3
 ```bash
 yarn add react-native-networking-patch@1.2.0 --dev
